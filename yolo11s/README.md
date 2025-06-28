@@ -36,17 +36,18 @@ This directory contains code and instructions to **train a YOLOv8 object detecti
    PYTHONPATH=./ultralytics python3 yolo_detect.py --model /workspace/data/YOLO/runs/detect/train_11s7/weights/best.pt --source test.jpg --thresh 0.8
 
 7. **Generate segmentation masks for FoundationPose:**
-   - This script produces object masks from your trained model outputs.
+
+This script produces object masks from your trained model outputs.
 method being used for this script is:
-      - Loads a trained YOLO model to detect objects in all images from a directory.
-      - For each detected object above a confidence threshold:
-         - Extracts the bounding box region (ROI) for that object.
-         - For “yellow” objects: creates a mask using HSV color thresholding.
-         - For “gray/grey/grau/black” objects: creates a mask based on pixel similarity in BGR channels (with an Otsu fallback for weak cases).
-         - Cleans the mask with morphological operations and keeps only the largest region.
-      - Applies the object mask into the correct position within the full-size image.
-      - Saves all masks as .png images, sorted into class-named subfolders in the output directory.
-      - Prints progress for each processed image and reports when done.
+   - Loads a trained YOLO model to detect objects in all images from a directory.
+   - For each detected object above a confidence threshold:
+      - Extracts the bounding box region (ROI) for that object.
+      - For “yellow” objects: creates a mask using HSV color thresholding.
+      - For “gray/grey/grau/black” objects: creates a mask based on pixel similarity in BGR channels (with an Otsu fallback for weak cases).
+      - Cleans the mask with morphological operations and keeps only the largest region.
+   - Applies the object mask into the correct position within the full-size image.
+   - Saves all masks as .png images, sorted into class-named subfolders in the output directory.
+   - Prints progress for each processed image and reports when done.
         
    ```bash
    python3 generate_masks.py
