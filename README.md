@@ -2,7 +2,8 @@
 
 This repository contains a full pipeline for 6D object pose estimation, originally organized as two separate containers:
 
-- **YOLO (for object detection):**  
+- **YOLO (for object detection):**
+  Dockerfile and start_MVSR.sh are also in the repo
   Based on [this tutorial](https://www.ejtech.io/learn/train-yolo-models)
 
 - **FoundationPose (for 6D pose estimation):**  
