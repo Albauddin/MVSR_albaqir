@@ -48,13 +48,7 @@ method being used for this script is:
    - Applies the object mask into the correct position within the full-size image.
    - Saves all masks as .png images, sorted into class-named subfolders in the output directory.
    - Prints progress for each processed image and reports when done.
-        
+   - Note: Mask quality may not be perfect for grey objects, but is sufficient for use with FoundationPose. Results are saved in the masks/ directory.
+
    ```bash
    python3 generate_masks.py
-
-Note: Mask quality may not be perfect for grey objects, but is sufficient for use with FoundationPose.
-Results are saved in the masks/ directory.
-
-
-
-
