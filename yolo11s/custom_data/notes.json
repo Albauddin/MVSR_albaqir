@@ -1,0 +1,33 @@
+{
+  "categories": [
+    {
+      "id": 0,
+      "name": "Left_Frame_Grey"
+    },
+    {
+      "id": 1,
+      "name": "Left_Frame_Yellow"
+    },
+    {
+      "id": 2,
+      "name": "Right_Frame_Yellow"
+    },
+    {
+      "id": 3,
+      "name": "Special_Left_Frame_Grey"
+    },
+    {
+      "id": 4,
+      "name": "Left_Frame_Yellow_2"
+    },
+    {
+      "id": 5,
+      "name": "Right_Frame_Yellow_2"
+    }
+  ],
+  "info": {
+    "year": 2025,
+    "version": "1.0",
+    "contributor": "Label Studio"
+  }
+}

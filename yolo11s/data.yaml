@@ -1,0 +1,12 @@
+path: /workspace/data/YOLO/data
+train: train/images
+val: val/images
+nc: 6
+
+names:
+- Left_Frame_Grey
+- Left_Frame_Yellow
+- Right_Frame_Yellow
+- Special_Left_Frame_Grey
+- Left_Frame_Yellow_2
+- Right_Frame_Yellow_2
