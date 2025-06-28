@@ -4,7 +4,7 @@ This directory contains code and instructions to **train a YOLOv8 object detecti
 
 ## **Step-by-Step Instructions**
 
-1. **Follow the official YOLOv8 training tutorial:**  
+1. **Follow the official YOLO training tutorial:**  
    [https://www.ejtech.io/learn/train-yolo-models](https://www.ejtech.io/learn/train-yolo-models)
 
 2. **Prepare your dataset:**
