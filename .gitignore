@@ -8,10 +8,6 @@
 *.pb
 
 
-foundationpose/weights/
-*.pth
-*.pt
-
 # Large or intermediate output folders
 weights/
 outputs/
