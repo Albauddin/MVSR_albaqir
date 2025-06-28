@@ -52,3 +52,16 @@ Note: Mask quality may not be perfect for grey objects, but is sufficient for us
 
    ```bash
    python3 generate_masks.py
+   ```
+
+the resulted masks will be in the masks directory like this
+
+   ```bash
+masks/
+├── Left_Frame_Grey/
+├── Left_Frame_Yellow/
+├── Left_Frame_Yellow_2/
+├── Right_Frame_Yellow/
+├── Right_Frame_Yellow_2/
+└── Special_Left_Frame_Grey/
+   ```
