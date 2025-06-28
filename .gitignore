@@ -18,8 +18,9 @@ __pycache__/
 *.pyc
 
 # Dataset folders (if not sharing raw data)
-data/
+# data/
 datasets/
+
 # (uncomment above if you don't want to push sample images or datasets)
 
 # Jupyter Notebook checkpoints
