@@ -1,0 +1,64 @@
+# Model weights, checkpoints, and output files
+*.pth
+*.pt
+*.ckpt
+*.h5
+*.onnx
+*.tflite
+*.pb
+
+
+foundationpose/weights/
+*.pth
+*.pt
+
+# Large or intermediate output folders
+weights/
+outputs/
+runs/
+logs/
+results/
+__pycache__/
+*.pyc
+
+# Dataset folders (if not sharing raw data)
+data/
+datasets/
+# (uncomment above if you don't want to push sample images or datasets)
+
+# Jupyter Notebook checkpoints
+.ipynb_checkpoints/
+
+# IDE/editor folders
+.vscode/
+.idea/
+
+# System files
+.DS_Store
+
+# Docker artifacts
+*.tar
+*.img
+*.log
+
+# Build artifacts (if any C++/Cython)
+build/
+dist/
+*.so
+
+# Ignore debug folders or intermediate rendering results
+debug/
+debug_single/
+result_*.jpg
+result_*.png
+
+# Ignore test images
+test*.jpg
+test*.png
+
+# If you use Ultralytics local clone as a submodule or copied folder
+ultralytics_local/
+
+# Optionally, ignore environment files (if sensitive or too large)
+.env
+.env.*
