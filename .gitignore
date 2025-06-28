@@ -11,9 +11,9 @@
 # Large or intermediate output folders
 weights/
 outputs/
-runs/
+# runs/
 logs/
-results/
+# results/
 __pycache__/
 *.pyc
 
