@@ -1,0 +1,80 @@
+[
+  {
+    "id": 0,
+    "class": "Left Frame Yellow",
+    "rgb": "rgb_crop_0_Left Frame Yellow.png",
+    "depth": "depth_crop_0_Left Frame Yellow.png",
+    "bbox": [
+      273,
+      135,
+      431,
+      270
+    ],
+    "conf": 0.9935486912727356
+  },
+  {
+    "id": 1,
+    "class": "Left Frame Yellow",
+    "rgb": "rgb_crop_1_Left Frame Yellow.png",
+    "depth": "depth_crop_1_Left Frame Yellow.png",
+    "bbox": [
+      84,
+      214,
+      256,
+      354
+    ],
+    "conf": 0.9893758296966553
+  },
+  {
+    "id": 2,
+    "class": "Left Frame Grey",
+    "rgb": "rgb_crop_2_Left Frame Grey.png",
+    "depth": "depth_crop_2_Left Frame Grey.png",
+    "bbox": [
+      241,
+      229,
+      401,
+      395
+    ],
+    "conf": 0.9866133332252502
+  },
+  {
+    "id": 3,
+    "class": "Right Frame Yellow",
+    "rgb": "rgb_crop_3_Right Frame Yellow.png",
+    "depth": "depth_crop_3_Right Frame Yellow.png",
+    "bbox": [
+      95,
+      86,
+      288,
+      211
+    ],
+    "conf": 0.968070387840271
+  },
+  {
+    "id": 4,
+    "class": "Right Frame Yellow",
+    "rgb": "rgb_crop_4_Right Frame Yellow.png",
+    "depth": "depth_crop_4_Right Frame Yellow.png",
+    "bbox": [
+      353,
+      166,
+      535,
+      317
+    ],
+    "conf": 0.9436679482460022
+  },
+  {
+    "id": 5,
+    "class": "Special Left Frame Grey",
+    "rgb": "rgb_crop_5_Special Left Frame Grey.png",
+    "depth": "depth_crop_5_Special Left Frame Grey.png",
+    "bbox": [
+      457,
+      184,
+      612,
+      389
+    ],
+    "conf": 0.9207910299301147
+  }
+]

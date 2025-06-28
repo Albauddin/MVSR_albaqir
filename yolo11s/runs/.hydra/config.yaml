@@ -1,0 +1,379 @@
+name: v9-dev
+task:
+  validation:
+    task: validation
+    data:
+      batch_size: 32
+      image_size: ${image_size}
+      cpu_num: ${cpu_num}
+      shuffle: false
+      pin_memory: true
+      data_augment: {}
+      dynamic_shape: false
+    nms:
+      min_confidence: 0.0001
+      min_iou: 0.7
+      max_bbox: 1000
+  task: train
+  epoch: 500
+  data:
+    batch_size: 16
+    image_size: ${image_size}
+    cpu_num: ${cpu_num}
+    shuffle: true
+    pin_memory: true
+    data_augment:
+      Mosaic: 1
+      RandomCrop: 1
+      RemoveOutliers: 1.0e-08
+  optimizer:
+    type: SGD
+    args:
+      lr: 0.01
+      weight_decay: 0.0005
+      momentum: 0.937
+      nesterov: true
+  loss:
+    objective:
+      BCELoss: 0.5
+      BoxLoss: 7.5
+      DFLoss: 1.5
+    aux: 0.25
+    matcher:
+      iou: CIoU
+      topk: 10
+      factor:
+        iou: 6.0
+        cls: 0.5
+  scheduler:
+    type: LinearLR
+    warmup:
+      epochs: 3.0
+    args:
+      total_iters: ${task.epoch}
+      start_factor: 1
+      end_factor: 0.01
+  ema:
+    enable: true
+    decay: 0.995
+dataset:
+  path: data/coco
+  train: train2017
+  validation: val2017
+  class_num: 80
+  class_list:
+  - Person
+  - Bicycle
+  - Car
+  - Motorcycle
+  - Airplane
+  - Bus
+  - Train
+  - Truck
+  - Boat
+  - Traffic light
+  - Fire hydrant
+  - Stop sign
+  - Parking meter
+  - Bench
+  - Bird
+  - Cat
+  - Dog
+  - Horse
+  - Sheep
+  - Cow
+  - Elephant
+  - Bear
+  - Zebra
+  - Giraffe
+  - Backpack
+  - Umbrella
+  - Handbag
+  - Tie
+  - Suitcase
+  - Frisbee
+  - Skis
+  - Snowboard
+  - Sports ball
+  - Kite
+  - Baseball bat
+  - Baseball glove
+  - Skateboard
+  - Surfboard
+  - Tennis racket
+  - Bottle
+  - Wine glass
+  - Cup
+  - Fork
+  - Knife
+  - Spoon
+  - Bowl
+  - Banana
+  - Apple
+  - Sandwich
+  - Orange
+  - Broccoli
+  - Carrot
+  - Hot dog
+  - Pizza
+  - Donut
+  - Cake
+  - Chair
+  - Couch
+  - Potted plant
+  - Bed
+  - Dining table
+  - Toilet
+  - Tv
+  - Laptop
+  - Mouse
+  - Remote
+  - Keyboard
+  - Cell phone
+  - Microwave
+  - Oven
+  - Toaster
+  - Sink
+  - Refrigerator
+  - Book
+  - Clock
+  - Vase
+  - Scissors
+  - Teddy bear
+  - Hair drier
+  - Toothbrush
+  auto_download:
+    images:
+      base_url: http://images.cocodataset.org/zips/
+      train2017:
+        file_name: train2017
+        file_num: 118287
+      val2017:
+        file_name: val2017
+        file_num: 5000
+      test2017:
+        file_name: test2017
+        file_num: 40670
+    annotations:
+      base_url: http://images.cocodataset.org/annotations/
+      annotations:
+        file_name: annotations_trainval2017
+model:
+  name: v9-c
+  anchor:
+    reg_max: 16
+    strides:
+    - 8
+    - 16
+    - 32
+  model:
+    backbone:
+    - Conv:
+        args:
+          out_channels: 64
+          kernel_size: 3
+          stride: 2
+        source: 0
+    - Conv:
+        args:
+          out_channels: 128
+          kernel_size: 3
+          stride: 2
+    - RepNCSPELAN:
+        args:
+          out_channels: 256
+          part_channels: 128
+    - ADown:
+        args:
+          out_channels: 256
+    - RepNCSPELAN:
+        args:
+          out_channels: 512
+          part_channels: 256
+        tags: B3
+    - ADown:
+        args:
+          out_channels: 512
+    - RepNCSPELAN:
+        args:
+          out_channels: 512
+          part_channels: 512
+        tags: B4
+    - ADown:
+        args:
+          out_channels: 512
+    - RepNCSPELAN:
+        args:
+          out_channels: 512
+          part_channels: 512
+        tags: B5
+    neck:
+    - SPPELAN:
+        args:
+          out_channels: 512
+        tags: N3
+    - UpSample:
+        args:
+          scale_factor: 2
+          mode: nearest
+    - Concat:
+        source:
+        - -1
+        - B4
+    - RepNCSPELAN:
+        args:
+          out_channels: 512
+          part_channels: 512
+        tags: N4
+    - UpSample:
+        args:
+          scale_factor: 2
+          mode: nearest
+    - Concat:
+        source:
+        - -1
+        - B3
+    head:
+    - RepNCSPELAN:
+        args:
+          out_channels: 256
+          part_channels: 256
+        tags: P3
+    - ADown:
+        args:
+          out_channels: 256
+    - Concat:
+        source:
+        - -1
+        - N4
+    - RepNCSPELAN:
+        args:
+          out_channels: 512
+          part_channels: 512
+        tags: P4
+    - ADown:
+        args:
+          out_channels: 512
+    - Concat:
+        source:
+        - -1
+        - N3
+    - RepNCSPELAN:
+        args:
+          out_channels: 512
+          part_channels: 512
+        tags: P5
+    detection:
+    - MultiheadDetection:
+        source:
+        - P3
+        - P4
+        - P5
+        tags: Main
+        output: true
+    auxiliary:
+    - CBLinear:
+        source: B3
+        args:
+          out_channels:
+          - 256
+        tags: R3
+    - CBLinear:
+        source: B4
+        args:
+          out_channels:
+          - 256
+          - 512
+        tags: R4
+    - CBLinear:
+        source: B5
+        args:
+          out_channels:
+          - 256
+          - 512
+          - 512
+        tags: R5
+    - Conv:
+        args:
+          out_channels: 64
+          kernel_size: 3
+          stride: 2
+        source: 0
+    - Conv:
+        args:
+          out_channels: 128
+          kernel_size: 3
+          stride: 2
+    - RepNCSPELAN:
+        args:
+          out_channels: 256
+          part_channels: 128
+    - ADown:
+        args:
+          out_channels: 256
+    - CBFuse:
+        source:
+        - R3
+        - R4
+        - R5
+        - -1
+        args:
+          index:
+          - 0
+          - 0
+          - 0
+    - RepNCSPELAN:
+        args:
+          out_channels: 512
+          part_channels: 256
+        tags: A3
+    - ADown:
+        args:
+          out_channels: 512
+    - CBFuse:
+        source:
+        - R4
+        - R5
+        - -1
+        args:
+          index:
+          - 1
+          - 1
+    - RepNCSPELAN:
+        args:
+          out_channels: 512
+          part_channels: 512
+        tags: A4
+    - ADown:
+        args:
+          out_channels: 512
+    - CBFuse:
+        source:
+        - R5
+        - -1
+        args:
+          index:
+          - 2
+    - RepNCSPELAN:
+        args:
+          out_channels: 512
+          part_channels: 512
+        tags: A5
+    - MultiheadDetection:
+        source:
+        - A3
+        - A4
+        - A5
+        tags: AUX
+        output: true
+device: 0
+cpu_num: 16
+image_size:
+- 640
+- 640
+out_path: runs
+exist_ok: true
+lucky_number: 10
+use_wandb: true
+use_tensorboard: false
+weight: true
