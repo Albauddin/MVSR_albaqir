@@ -1,4 +1,4 @@
-# YOLOv8 Training Pipeline (yolo11s)
+# YOLO11s Training Pipeline
 
 This directory contains code and instructions to **train a YOLOv8 object detection model** for the MVSR project.
 
