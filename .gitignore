@@ -43,14 +43,14 @@ dist/
 *.so
 
 # Ignore debug folders or intermediate rendering results
-debug/
-debug_single/
-result_*.jpg
-result_*.png
+# debug/
+# debug_single/
+# result_*.jpg
+# result_*.png
 
 # Ignore test images
-test*.jpg
-test*.png
+# test*.jpg
+# test*.png
 
 # If you use Ultralytics local clone as a submodule or copied folder
 ultralytics_local/
